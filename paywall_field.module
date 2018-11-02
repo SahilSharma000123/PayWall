@@ -14,11 +14,11 @@ use Drupal\Core\Entity\EntityInterface;
  */
 function paywall_field_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the password_field module.
-    case 'help.page.password_field':
+    // Main module help for the paywall_field module.
+    case 'help.page.paywall_field':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('module that saves password') . '</p>';
+      $output .= '<p>' . t('Replace fields with messages') . '</p>';
       return $output;
 
     default:
