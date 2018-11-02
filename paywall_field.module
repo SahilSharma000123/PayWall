@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Contains paywall_field.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_help().
+ */
+function paywall_field_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the password_field module.
+    case 'help.page.password_field':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('module that saves password') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ *
+ */
+function paywall_field_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+
+  $nid = \Drupal::routeMatch()->getParameter('node');
+  // $Node = \Drupal\node\Entity\Node::load($nid);
+  $select = [];
+  $select = $nid->toArray();
+//taken default comment field as example.
+  foreach ($select as $keys => $values) {
+    if ($keys == 'comment') {
+      $display->removeComponent('comment');
+
+    }
+  }
+}
+
+/**
+ *
+ */
+function paywall_field_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+
+  $nid = \Drupal::routeMatch()->getParameter('node');
+  // $Node = \Drupal\node\Entity\Node::load($nid);
+  //  echo '<pre>';.
+  $select = [];
+  $select = $nid->toArray();
+  for ($i = 0; $i < sizeof($select); $i++) {
+    foreach ($select as $keys => $values) {
+      if ($values[$i][message]) {
+        $build['mymodule_addition'] = ['#markup' => '<p1>' . $values[$i][message] . '</p1>'];
+
+      }
+    }
+  }
+}
