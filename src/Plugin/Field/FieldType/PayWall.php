@@ -59,6 +59,12 @@ class PayWall extends FieldItemBase implements FieldItemInterface {
           'length' => 4,
           'not null' => FALSE,
         ],
+        'fieldValues' => [
+          'type' => 'text',
+          'size' => 'big',
+          'serialize' => TRUE,
+          'not null' => FALSE,
+        ],
 
       ],
     ];
@@ -72,6 +78,8 @@ class PayWall extends FieldItemBase implements FieldItemInterface {
     $properties['message'] = DataDefinition::create('string')
       ->setLabel(t('Set Message'));
     $properties['user'] = DataDefinition::create('string')
+      ->setLabel(t('Authenticated User'));
+    $properties['fieldValues'] = DataDefinition::create('string')
       ->setLabel(t('Authenticated User'));
     return $properties;
   }
